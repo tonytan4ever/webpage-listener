@@ -1,5 +1,10 @@
-'''
-Created on Sep 7, 2015
+import abc
 
-@author: tony7514
-'''
+import six
+
+
+@six.add_metaclass(abc.ABCMeta)
+class emailHookBase(object):
+
+    def do_action(self, mail_content, sender, receiver):
+        raise NotImplementedError
