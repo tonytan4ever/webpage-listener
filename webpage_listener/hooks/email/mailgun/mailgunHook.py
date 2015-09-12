@@ -65,7 +65,6 @@ class mailgunHook(base.emailHookBase):
                     'text': mail_content
                 }
             )
-            print response_status_code
             response_status_code = response.status_code
             attempt += 1
 
