@@ -31,7 +31,7 @@ MAILGUN_CONFIG_OPTIONS = [
 MAILGUN_CONFIG_GROUP = 'mailgun_config'
 
 
-class mailgunHook(base.emailHookBase):
+class hook(base.emailHookBase):
 
     def __init__(self):
         self.conf = cfg.CONF

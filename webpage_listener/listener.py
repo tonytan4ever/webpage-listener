@@ -17,6 +17,10 @@ cli_opts = [
                required=True,
                default=5*60,
                help='Interval to poll content from the pages'),
+    cfg.StrOpt('hook_module',
+               required=True,
+               default='webpage_listener.hooks.email.mailgun.mailgunHook',
+               help='Hook module to execute when change happens'),
     cfg.StrOpt('css_selector_expression',
                required=True,
                help='css selector expression to select the content on webpage')
@@ -29,8 +33,15 @@ logging.basicConfig(filename='web-pages-listener.log',
                     level=logging.DEBUG)
 
 
-def on_Change(url, new_content):
-    pass
+def on_Change(hook_module_string, url, previous_content, new_content):
+    hook_m = __import__(hook_module_string, globals(), locals(), ['hook'], -1)
+    # hard code subject for now.
+    subject = "Something has changed on this site. I posted something?"
+    content = ("%s has something changed: \n"
+               "Old: %s,\n"
+               "New: %s"
+               ) % (url, previous_content, new_content)
+    hook_m.hook().do_action(subject, content)
 
 
 def poll(url, css_selector_expression):
@@ -45,6 +56,7 @@ def poll(url, css_selector_expression):
 
 def main(list_of_urls, css_selector_expression,
          polling_period,
+         hook_module_string,
          on_change_from_none=False):
     previous_content = {url: None for url in list_of_urls}
     while True:
@@ -61,7 +73,10 @@ def main(list_of_urls, css_selector_expression,
                     continue
                 else:
                     logging.info('Starting to executing hooks...')
-                    on_Change(url, now_content)
+                    on_Change(hook_module_string,
+                              url,
+                              previous_content[url],
+                              now_content)
         time.sleep(polling_period)
 
 
@@ -70,4 +85,5 @@ if __name__ == '__main__':
     CONF.register_cli_opts(cli_opts)
     CONF(prog='web-pages-listener')
 
-    main(CONF.list_urls, CONF.css_selector_expression, CONF.polling_period)
+    main(CONF.list_of_urls, CONF.css_selector_expression, CONF.polling_period,
+         CONF.hook_module)

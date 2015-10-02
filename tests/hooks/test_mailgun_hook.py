@@ -33,7 +33,7 @@ class TestmailgunHook(unittest.TestCase):
     @mock.patch.object(mailgunHook, 'MAILGUN_CONFIG_OPTIONS',
                        new=MAILGUN_CONFIG_OPTIONS)
     def setUp(self):
-        self.mh = mailgunHook.mailgunHook()
+        self.mh = mailgunHook.hook()
     
     @mock.patch.object(requests, 'post', new=mock.Mock())
     def test_mailgun_hook_do_action(self):
