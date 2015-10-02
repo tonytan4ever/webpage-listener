@@ -16,7 +16,7 @@
 import cgi
 import pprint
 
-from poppy.openstack.common import log
+from webpage_listener.openstack.common import log
 
 LOG = log.getLogger(__name__)
 
