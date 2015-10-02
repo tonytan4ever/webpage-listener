@@ -51,10 +51,10 @@ else:
 import six
 import six.moves.xmlrpc_client as xmlrpclib
 
-from poppy.openstack.common import gettextutils
-from poppy.openstack.common import importutils
-from poppy.openstack.common import strutils
-from poppy.openstack.common import timeutils
+from webpage_listener.openstack.common import gettextutils
+from webpage_listener.openstack.common import importutils
+from webpage_listener.openstack.common import strutils
+from webpage_listener.openstack.common import timeutils
 
 netaddr = importutils.try_import("netaddr")
 

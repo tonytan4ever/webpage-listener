@@ -42,13 +42,13 @@ from six import moves
 
 _PY26 = sys.version_info[0:2] == (2, 6)
 
-from poppy.openstack.common.gettextutils import _
-from poppy.openstack.common import importutils
-from poppy.openstack.common import jsonutils
-from poppy.openstack.common import local
+from webpage_listener.openstack.common.gettextutils import _
+from webpage_listener.openstack.common import importutils
+from webpage_listener.openstack.common import jsonutils
+from webpage_listener.openstack.common import local
 # NOTE(flaper87): Pls, remove when graduating this module
 # from the incubator.
-from poppy.openstack.common.strutils import mask_password  # noqa
+from webpage_listener.openstack.common.strutils import mask_password  # noqa
 
 
 _DEFAULT_LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
