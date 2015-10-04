@@ -70,6 +70,7 @@ def main(list_of_urls, css_selector_expression,
                 logging.info('Previous content: %s' % previous_content[url])
                 logging.info('Now content: %s' % now_content)
                 if previous_content[url] is None and not on_change_from_none:
+                    previous_content[url] = now_content
                     continue
                 else:
                     logging.info('Starting to executing hooks...')
@@ -77,6 +78,7 @@ def main(list_of_urls, css_selector_expression,
                               url,
                               previous_content[url],
                               now_content)
+                    previous_content[url] = now_content
         time.sleep(polling_period)
 
 
