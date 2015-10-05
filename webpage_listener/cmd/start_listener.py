@@ -17,7 +17,7 @@ cli_opts = [
                required=True,
                default='webpage_listener.hooks.email.mailgun.mailgunHook',
                help='Hook module to execute when change happens'),
-    cfg.ListOpt('daemon',
+    cfg.BoolOpt('daemon',
                 default=False,
                 help='Whether to run this command in daemon'),
     cfg.StrOpt('css_selector_expression',

@@ -3,11 +3,13 @@
 import logging
 import time
 
+import jinja2
 import lxml.html
 import requests
 from oslo_config import cfg
 
 import selector
+from webpage_listener.content_template import template_1
 
 cli_opts = [
     cfg.ListOpt('list_of_urls',
@@ -43,11 +45,10 @@ def on_Change(hook_module_string, url, previous_content, new_content):
     subject = "I posted something new..."
     previous_content = ''.join(previous_content or [])
     new_content = ''.join([string_non_ascii(s) for s in new_content])
-    content = ("I posted a post: %s !!!And has something changed: \n"
-               "Old: %s\n"
-               "New: %s\n"
-               "Frederick Jones"
-               ) % (url, previous_content, new_content)
+    content = jinja2.Template(template_1.TEMPLATE_1).\
+        render(url=url,
+               previous_content=previous_content,
+               new_content=new_content)
     hook_m.hook().do_action(subject, content)
 
 
