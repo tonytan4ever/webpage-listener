@@ -34,15 +34,15 @@ logging.basicConfig(filename='web-pages-listener.log',
 
 
 def string_non_ascii(s):
-    return ''.join([x for x in 'YOUR_STRING' if ord(x) < 128])
+    return ''.join([x for x in s if ord(x) < 128])
 
 
 def on_Change(hook_module_string, url, previous_content, new_content):
     hook_m = __import__(hook_module_string, globals(), locals(), ['hook'], -1)
     # hard code subject for now.
     subject = "I posted something new..."
-    previous_content = previous_content or []
-    new_content = [string_non_ascii(s) for s in new_content]
+    previous_content = ''.join(previous_content or [])
+    new_content = ''.join([string_non_ascii(s) for s in new_content])
     content = ("%s has something changed: \n"
                "Old: %s,\n"
                "New: %s"
