@@ -25,7 +25,10 @@ MAILGUN_CONFIG_OPTIONS = [
     cfg.StrOpt('from_address', default='noreply@weblistener.org',
                help='Sent from email address'),
     cfg.ListOpt('recipients',
-                help='A list of emails addresses to receive notification ')
+                help='A list of emails addresses to receive notification '),
+    cfg.ListOpt('bcc_recipients',
+                help='A list of bcc emails addresses to receive'
+                ' notification ')
 ]
 
 MAILGUN_CONFIG_GROUP = 'mailgun_config'
@@ -46,6 +49,7 @@ class hook(base.emailHookBase):
         self.sand_box = self.mail_notification_conf.sand_box
         self.from_address = self.mail_notification_conf.from_address
         self.recipients = self.mail_notification_conf.recipients
+        self.bcc_recipients = self.mail_notification_conf.bcc_recipients
 
     def do_action(self, subject, mail_content):
         request_url = self.mailgun_request_url.format(self.sand_box)
@@ -61,6 +65,7 @@ class hook(base.emailHookBase):
                 data={
                     'from': self.from_address,
                     'to': self.recipients,
+                    'bcc': self.bcc_recipients,
                     'subject': subject,
                     'text': mail_content
                 }
