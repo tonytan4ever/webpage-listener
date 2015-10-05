@@ -45,7 +45,7 @@ def on_Change(hook_module_string, url, previous_content, new_content):
     new_content = ''.join([string_non_ascii(s) for s in new_content])
     content = ("%s has something changed: \n"
                "Old: %s,\n"
-               "New: %s"
+               "New: %s\n"
                "Frederick Jones"
                ) % (url, previous_content, new_content)
     hook_m.hook().do_action(subject, content)
