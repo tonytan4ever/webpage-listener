@@ -43,8 +43,8 @@ def on_Change(hook_module_string, url, previous_content, new_content):
     subject = "I posted something new..."
     previous_content = ''.join(previous_content or [])
     new_content = ''.join([string_non_ascii(s) for s in new_content])
-    content = ("%s has something changed: \n"
-               "Old: %s,\n"
+    content = ("I posted a post: %s !!!And has something changed: \n"
+               "Old: %s\n"
                "New: %s\n"
                "Frederick Jones"
                ) % (url, previous_content, new_content)
