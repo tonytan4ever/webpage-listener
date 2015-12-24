@@ -20,6 +20,9 @@ cli_opts = [
     cfg.BoolOpt('daemon',
                 default=False,
                 help='Whether to run this command in daemon'),
+    cfg.BoolOpt('on_change_from_none',
+                default=False,
+                help='Whether to send email in the first run'),
     cfg.StrOpt('css_selector_expression',
                required=True,
                help='css selector expression to select the content on webpage')
@@ -57,4 +60,5 @@ def run():
             os._exit(2)
 
     listener.main(CONF.list_of_urls, CONF.css_selector_expression,
-                  CONF.polling_period, CONF.hook_module, True)
+                  CONF.polling_period, CONF.hook_module,
+                  CONF.on_change_from_none)
